@@ -24,7 +24,48 @@ typedef struct
     char name[255];
     int age;
     
+
 } student;
+
+typedef void(*Callback)(int i);
+
+DLL_EXPORT void CALL TestCallback(int* arr, int size, Callback call)
+{
+    for (int i = 0; i < size; i++)
+    {
+        call(arr[i]);
+    }
+}
+
+
+DLL_EXPORT int CALL vtest(void** p, const char *p1)
+{
+    if (p == NULL)
+        return -1;
+    void* a = *p;
+    if (a == NULL)
+        return -2;
+    int* b = (int*)a;
+
+    printf("s:%s\n", p1);
+    return *b;
+}
+
+DLL_EXPORT int CALL vtest1(void** p)
+{
+    int a = 100;
+    int* p1 = &a;
+    int** p2 = &p1;
+
+    return 0;
+}
+
+DLL_EXPORT void** CALL vtest2(void** p)
+{
+    return p;
+}
+
+
 
 DLL_EXPORT bool CALL bs(bool v) {
     return v;
@@ -87,3 +128,5 @@ DLL_EXPORT student* CALL st1(student* p) {
     p->age = 100;
     return p;
 }
+
+
