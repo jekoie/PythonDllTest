@@ -23,11 +23,18 @@ typedef struct
 {
     char name[255];
     int age;
-    
-
 } student;
 
-typedef void(*Callback)(int i);
+typedef void(*Callback)(int);
+typedef int(*getNextValue)(int);
+
+DLL_EXPORT int* CALL TestCallback2(int* arr, int arrSize, getNextValue fun) {
+    for (int i= 0; i < arrSize; i++) {
+        arr[i] = fun(i);
+    }
+
+    return arr;
+}
 
 DLL_EXPORT void CALL TestCallback(int* arr, int size, Callback call)
 {
@@ -64,7 +71,6 @@ DLL_EXPORT void** CALL vtest2(void** p)
 {
     return p;
 }
-
 
 
 DLL_EXPORT bool CALL bs(bool v) {
